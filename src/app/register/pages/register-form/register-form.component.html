@@ -1,0 +1,114 @@
+<h1>Registro de pasajeros</h1>
+<hr />
+
+<div class="row">
+  <div class="col">
+    <form [formGroup]="miFormulario" (ngSubmit)="registrar()">
+      <!-- Cantidad de pasajeros -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Cantidad de pasajeros</label>
+        <div class="col-sm-9">
+          <select class="form-select">
+            <option selected value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="3">4</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Nombres -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Nombres</label>
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Pablito Clavo"
+            formControlName="nombres"
+          />
+          <span class="form-text text-danger" *ngIf="campoValido('nombres')">
+            El campo es obligatorio
+          </span>
+        </div>
+      </div>
+
+      <!-- Apellidos -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Apellidos</label>
+        <div class="col-sm-9">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Un Clavito"
+            formControlName="apellidos"
+          />
+          <span class="form-text text-danger" *ngIf="campoValido('apellidos')">
+            El campo es obligatorio
+          </span>
+        </div>
+      </div>
+
+      <!-- Nacionalidad -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Nacionalidad</label>
+        <div class="col-sm-9">
+          <select class="form-select" formControlName="nacionalidad">
+            <option selected value="">Seleccionar país</option>
+            <option 
+              *ngFor="let pais of nacionalidades"
+              [value]="pais.alpha3Code"
+            >
+              {{ pais.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Documento de identidad -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Tipo de documento</label>
+        <div class="col-sm-9">
+          <select class="form-select" formControlName="tipoDocumento">
+            <option selected value="">Seleccionar tipo de documento</option>
+            <option
+              *ngFor="let tipo of documentTypes"
+              [value]="tipo.value"
+              >
+              {{ tipo.viewValue }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Número de documento -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Número de documento</label>
+        <div class="col-sm-9">
+          <input type="number" class="form-control" />
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-9 d-grid">
+          <button class="btn btn-primary" type="submit">Registrar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<hr />
+<h4>Valid</h4>
+<pre>{{ miFormulario.valid }}</pre>
+
+<h4>Nombres</h4>
+<pre>{{ miFormulario.controls['nombres'].errors | json }}</pre>
+
+<h4>Tipo de Documento</h4>
+<pre>{{ miFormulario.controls['tipoDocumento'].errors | json }}</pre>
+
+<h4>Valor de mi formulario</h4>
+<pre>{{ miFormulario.value | json }}</pre>
